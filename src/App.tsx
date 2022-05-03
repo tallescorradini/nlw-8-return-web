@@ -1,5 +1,11 @@
+import { Widget } from "./components";
+
 function App() {
-  return <>Hello World</>;
+  return (
+    <>
+      <Widget />
+    </>
+  );
 }
 
 export default App;
