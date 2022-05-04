@@ -1,7 +1,7 @@
 import bugImageUrl from "../../../../../assets/bug.svg";
 import ideaImageUrl from "../../../../../assets/idea.svg";
 import thoughtImageUrl from "../../../../../assets/thought.svg";
-import { CloseButton } from "./CloseButton";
+import { WidgetHomeHeader } from "../WidgetForm";
 
 export const feedbackTypes = {
   BUG: {
@@ -30,15 +30,17 @@ export type FeedbackType = keyof typeof feedbackTypes;
 
 interface Props {
   onFeedbackTypeChange: (type: FeedbackType) => void;
+  homeHeader: WidgetHomeHeader;
 }
 
-export function FeedbackTypeStep({ onFeedbackTypeChange }: Props) {
+export function FeedbackTypeStep({ onFeedbackTypeChange, homeHeader }: Props) {
+  const WidgetCloseButton = homeHeader.closeButton;
   return (
     <>
       <header>
-        <span className="text-xl leading-6">Deixe seu feedback</span>
+        <span className="text-xl leading-6">{homeHeader.title}</span>
 
-        <CloseButton />
+        {WidgetCloseButton}
       </header>
 
       <div className="flex py-8 gap-2 w-full">
