@@ -2,7 +2,7 @@ import { ArrowLeft } from "phosphor-react";
 import { useState, FormEvent } from "react";
 
 import { CloseButton } from "./CloseButton";
-import { FeedbackType, feedbackTypes } from "./FeedbackTypeStep";
+import { FeedbackType, feedbackTypes } from "../../../Widget";
 import { ScreenshotButton } from "./ScreenshotButton";
 
 interface Props {

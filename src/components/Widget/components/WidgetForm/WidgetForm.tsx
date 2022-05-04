@@ -1,27 +1,28 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
+import { FeedbackType } from "../../Widget";
 import { FeedBackContentStep } from "./components/FeedbackContentStep";
 import { FeedbackSuccessStep } from "./components/FeedbackSuccessStep";
-import { FeedbackType, FeedbackTypeStep } from "./components/FeedbackTypeStep";
 
-export interface WidgetHomeHeader {
-  title: string;
-  closeButton: React.ReactNode;
-}
 interface Props {
-  homeHeader: WidgetHomeHeader;
   footerContent: React.ReactNode;
+  firstStep: React.ReactElement;
 }
 
-export function WidgetForm({ homeHeader, footerContent }: Props) {
-  const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
+export function WidgetForm({ footerContent, firstStep }: Props) {
+  // Panel navigation states
+  // const [currentPannel, setCurrentPannel] = useState("home")
   const [isFeedbackSubmitted, setIsFeedbackSubmited] = useState(false);
+
+  // Form states
+  const [feedbackType, setFeedbackType] = useState<FeedbackType | null>(null);
 
   function handleRestartFeedback() {
     setIsFeedbackSubmited(false);
     setFeedbackType(null);
   }
 
+  const FeedbackTypeStep = firstStep;
   const FooterContent = footerContent;
 
   return (
@@ -29,10 +30,9 @@ export function WidgetForm({ homeHeader, footerContent }: Props) {
       {isFeedbackSubmitted ? (
         <FeedbackSuccessStep onReturn={handleRestartFeedback} />
       ) : !feedbackType ? (
-        <FeedbackTypeStep
-          homeHeader={homeHeader}
-          onFeedbackTypeChange={setFeedbackType}
-        />
+        React.cloneElement(FeedbackTypeStep, {
+          onFeedbackTypeChange: setFeedbackType,
+        })
       ) : (
         <FeedBackContentStep
           feedbackType={feedbackType}

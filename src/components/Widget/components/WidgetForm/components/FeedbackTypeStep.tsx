@@ -1,44 +1,25 @@
-import bugImageUrl from "../../../../../assets/bug.svg";
-import ideaImageUrl from "../../../../../assets/idea.svg";
-import thoughtImageUrl from "../../../../../assets/thought.svg";
-import { WidgetHomeHeader } from "../WidgetForm";
+import { FeedbackType, FeedbackTypeObject } from "../../../Widget";
 
-export const feedbackTypes = {
-  BUG: {
-    title: "Problema",
-    image: {
-      source: bugImageUrl,
-      alt: "Um inseto",
-    },
-  },
-  IDEA: {
-    title: "Ideia",
-    image: {
-      source: ideaImageUrl,
-      alt: "Uma lâmpada",
-    },
-  },
-  OTHER: {
-    title: "Outro",
-    image: {
-      source: thoughtImageUrl,
-      alt: "Um balão de pensamento",
-    },
-  },
-};
-export type FeedbackType = keyof typeof feedbackTypes;
-
+export interface WidgetHeader {
+  title: string;
+  closeButton: React.ReactNode;
+}
 interface Props {
-  onFeedbackTypeChange: (type: FeedbackType) => void;
-  homeHeader: WidgetHomeHeader;
+  onFeedbackTypeChange?: (type: FeedbackType) => void;
+  header: WidgetHeader;
+  feedbackTypes: Record<string, FeedbackTypeObject>;
 }
 
-export function FeedbackTypeStep({ onFeedbackTypeChange, homeHeader }: Props) {
-  const WidgetCloseButton = homeHeader.closeButton;
+export function FeedbackTypeStep({
+  onFeedbackTypeChange = () => {},
+  header,
+  feedbackTypes,
+}: Props) {
+  const WidgetCloseButton = header.closeButton;
   return (
     <>
       <header>
-        <span className="text-xl leading-6">{homeHeader.title}</span>
+        <span className="text-xl leading-6">{header.title}</span>
 
         {WidgetCloseButton}
       </header>

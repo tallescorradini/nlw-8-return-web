@@ -1,9 +1,44 @@
-import { ChatTeardropDots } from "phosphor-react";
+import React from "react";
 import { Popover } from "@headlessui/react";
 
+import bugImageUrl from "../../assets/bug.svg";
+import ideaImageUrl from "../../assets/idea.svg";
+import thoughtImageUrl from "../../assets/thought.svg";
 import { WidgetForm } from "./components/WidgetForm/WidgetForm";
-import React from "react";
 import { CloseButton } from "./components/WidgetForm/components/CloseButton";
+import { FeedbackTypeStep } from "./components/WidgetForm/components/FeedbackTypeStep";
+
+export const feedbackTypes = {
+  BUG: {
+    title: "Problema",
+    image: {
+      source: bugImageUrl,
+      alt: "Um inseto",
+    },
+  },
+  IDEA: {
+    title: "Ideia",
+    image: {
+      source: ideaImageUrl,
+      alt: "Uma lâmpada",
+    },
+  },
+  OTHER: {
+    title: "Outro",
+    image: {
+      source: thoughtImageUrl,
+      alt: "Um balão de pensamento",
+    },
+  },
+};
+export interface FeedbackTypeObject {
+  title: string;
+  image: {
+    source: string;
+    alt: string;
+  };
+}
+export type FeedbackType = keyof typeof feedbackTypes;
 
 interface WidgetButton {
   icon: React.ReactElement;
@@ -19,11 +54,15 @@ export function Widget({ button }: Props) {
     <Popover className="absolute bottom-4 right-4 md:bottom-8 md:right-8 flex flex-col items-end">
       <Popover.Panel>
         <WidgetForm
-          homeHeader={{
-            title: "Deixe seu feedback",
-            closeButton: <CloseButton />,
-          }}
-          // homeContent={{formField}} maybe WidgetForm should have context to interact with the rest of the form fields
+          firstStep={
+            <FeedbackTypeStep
+              header={{
+                title: "Deixe seu feedback",
+                closeButton: <CloseButton />,
+              }}
+              feedbackTypes={feedbackTypes}
+            />
+          }
           footerContent={
             <span>
               Feito com ♥ pela{" "}
