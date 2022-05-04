@@ -1,9 +1,10 @@
+import { ChatTeardropDots } from "phosphor-react";
 import { Widget } from "./components";
 
 function App() {
   return (
     <>
-      <Widget />
+      <Widget button={{ icon: <ChatTeardropDots />, text: "Feedback" }} />
     </>
   );
 }
