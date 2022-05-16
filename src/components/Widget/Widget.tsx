@@ -4,9 +4,6 @@ import { Popover } from "@headlessui/react";
 import bugImageUrl from "../../assets/bug.svg";
 import ideaImageUrl from "../../assets/idea.svg";
 import thoughtImageUrl from "../../assets/thought.svg";
-import { WidgetForm } from "./components/WidgetForm/WidgetForm";
-import { CloseButton } from "./components/WidgetForm/components/CloseButton";
-import { FeedbackTypeStep } from "./components/WidgetForm/components/FeedbackTypeStep";
 
 export const feedbackTypes = {
   BUG: {
@@ -45,37 +42,16 @@ interface WidgetButton {
   text: string;
 }
 interface Props {
+  form: React.ReactElement;
   button: WidgetButton;
 }
 
-export function Widget({ button }: Props) {
+export function Widget({ form: Form, button }: Props) {
   const WidgetButtonIcon = button.icon;
+
   return (
     <Popover className="absolute bottom-4 right-4 md:bottom-8 md:right-8 flex flex-col items-end">
-      <Popover.Panel>
-        <WidgetForm
-          firstStep={
-            <FeedbackTypeStep
-              header={{
-                title: "Deixe seu feedback",
-                closeButton: <CloseButton />,
-              }}
-              feedbackTypes={feedbackTypes}
-            />
-          }
-          footerContent={
-            <span>
-              Feito com ♥ pela{" "}
-              <a
-                href="https://rocketseat.com.br"
-                className="underline underline-offset-2"
-              >
-                Rocketseat
-              </a>
-            </span>
-          }
-        />
-      </Popover.Panel>
+      <Popover.Panel>{Form}</Popover.Panel>
 
       <Popover.Button className="bg-brand-500 rounded-full px-3 h-12 text-white flex items-center group">
         {React.cloneElement(WidgetButtonIcon, { className: "w-6 h-6" })}
