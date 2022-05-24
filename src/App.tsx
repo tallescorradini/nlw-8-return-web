@@ -1,4 +1,6 @@
+import { Popover } from "@headlessui/react";
 import { ChatTeardropDots } from "phosphor-react";
+import React from "react";
 import { feedbackTypes, Widget } from "./components";
 import { CloseButton } from "./components/Widget/components/WidgetForm/components/CloseButton";
 import { FeedbackTypeStep } from "./components/Widget/components/WidgetForm/components/FeedbackTypeStep";
@@ -8,6 +10,12 @@ function App() {
   return (
     <>
       <Widget
+        popoverButton={
+          <WidgetPopoverButton
+            icon={<ChatTeardropDots className="w-6 h-6" />}
+            text="Feedback"
+          />
+        }
         form={
           <WidgetForm
             header={
@@ -32,7 +40,6 @@ function App() {
             }
           />
         }
-        button={{ icon: <ChatTeardropDots />, text: "Feedback" }}
       />
     </>
   );
@@ -59,5 +66,22 @@ function WidgetHeader({
 
       {CloseButton}
     </header>
+  );
+}
+
+interface WidgetPopoverButtonProps {
+  icon: React.ReactNode;
+  text: string;
+}
+
+function WidgetPopoverButton({ icon: Icon, text }: WidgetPopoverButtonProps) {
+  return (
+    <Popover.Button className="bg-brand-500 rounded-full px-3 h-12 text-white flex items-center group">
+      {Icon}
+      <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-linear">
+        <span className="pl-2"></span>
+        {text}
+      </span>
+    </Popover.Button>
   );
 }
