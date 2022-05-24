@@ -7,13 +7,13 @@ import { FeedbackSuccessStep } from "./components/FeedbackSuccessStep";
 
 interface Props {
   header: React.ReactElement;
-  footerContent: React.ReactNode;
+  footer: React.ReactNode;
   firstStep: React.ReactElement;
 }
 
 export function WidgetForm({
   header: Header,
-  footerContent: FooterContent,
+  footer: Footer,
   firstStep: FeedbackTypeStep,
 }: Props) {
   // Panel navigation states
@@ -65,7 +65,7 @@ export function WidgetForm({
         </>
       )}
 
-      <footer className="text-xs text-neutral-400">{FooterContent}</footer>
+      {Footer}
     </>
   );
 }

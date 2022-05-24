@@ -26,16 +26,11 @@ function App() {
               />
             }
             firstStep={<FeedbackTypeStep feedbackTypes={feedbackTypes} />}
-            footerContent={
-              <span>
-                Feito com ♥ pela{" "}
-                <a
-                  href="https://rocketseat.com.br"
-                  className="underline underline-offset-2"
-                >
-                  Rocketseat
-                </a>
-              </span>
+            footer={
+              <WidgetPannelFooter
+                message="Feito com ♥ pela Rocketseat"
+                link={{ text: "Rocketseat", href: "https://rocketseat.com.br" }}
+              />
             }
           />
         }
@@ -82,5 +77,22 @@ function WidgetPopoverButton({ icon: Icon, text }: WidgetPopoverButtonProps) {
         {text}
       </span>
     </>
+  );
+}
+
+interface WidgetPannelFooterProps {
+  message: string;
+  link: { text: string; href: string };
+}
+
+function WidgetPannelFooter({ message, link }: WidgetPannelFooterProps) {
+  const composedMessage = message.replace(link.text, "");
+  return (
+    <footer className="text-xs text-neutral-400">
+      {composedMessage}
+      <a href={link.href} className="underline underline-offset-2">
+        {link.text}
+      </a>
+    </footer>
   );
 }
