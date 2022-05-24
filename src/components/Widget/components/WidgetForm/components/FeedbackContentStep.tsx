@@ -1,25 +1,14 @@
-import { ArrowLeft } from "phosphor-react";
 import { useState, FormEvent } from "react";
 
-import { CloseButton } from "./CloseButton";
-import { FeedbackType, feedbackTypes } from "../../../Widget";
 import { ScreenshotButton } from "./ScreenshotButton";
 
 interface Props {
-  feedbackType: FeedbackType;
-  onReturn: () => void;
   onSubmit: () => void;
 }
 
-export function FeedBackContentStep({
-  feedbackType,
-  onReturn,
-  onSubmit,
-}: Props) {
+export function FeedBackContentStep({ onSubmit }: Props) {
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [comment, setComment] = useState("");
-
-  const feedbackTypeInfo = feedbackTypes[feedbackType];
 
   function handleSubmitFeedback(e: FormEvent) {
     e.preventDefault();
@@ -30,26 +19,6 @@ export function FeedBackContentStep({
 
   return (
     <>
-      <header>
-        <button
-          onClick={onReturn}
-          type="button"
-          className="top-5 left-5 absolute text-zinc-400 hover:text-zinc-100"
-        >
-          <ArrowLeft weight="bold" className="w-4 h-4" />
-        </button>
-
-        <span className="text-xl leading-6 flex items-center gap-2">
-          <img
-            alt={feedbackTypeInfo.image.alt}
-            src={feedbackTypeInfo.image.source}
-          />
-          {feedbackTypeInfo.title}
-        </span>
-
-        <CloseButton />
-      </header>
-
       <form onSubmit={handleSubmitFeedback} className="my-4 w-full">
         <textarea
           onChange={(e) => setComment(e.target.value)}

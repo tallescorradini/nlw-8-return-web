@@ -10,15 +10,15 @@ function App() {
       <Widget
         form={
           <WidgetForm
-            firstStep={
-              <FeedbackTypeStep
-                header={{
-                  title: "Deixe seu feedback",
-                  closeButton: <CloseButton />,
-                }}
-                feedbackTypes={feedbackTypes}
+            header={
+              <WidgetHeader
+                title={
+                  <span className="text-xl leading-6">Deixe seu feedback</span>
+                }
+                closeButton={<CloseButton />}
               />
             }
+            firstStep={<FeedbackTypeStep feedbackTypes={feedbackTypes} />}
             footerContent={
               <span>
                 Feito com ♥ pela{" "}
@@ -39,3 +39,25 @@ function App() {
 }
 
 export default App;
+
+interface WidgetHeader {
+  returnButton?: React.ReactNode;
+  title: React.ReactNode;
+  closeButton: React.ReactNode;
+}
+
+function WidgetHeader({
+  returnButton: ReturnButton = null,
+  title: Title,
+  closeButton: CloseButton,
+}: WidgetHeader) {
+  return (
+    <header>
+      {ReturnButton !== null ? ReturnButton : null}
+
+      {Title !== null ? Title : null}
+
+      {CloseButton}
+    </header>
+  );
+}

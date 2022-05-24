@@ -1,29 +1,16 @@
 import { FeedbackType, FeedbackTypeObject } from "../../../Widget";
 
-export interface WidgetHeader {
-  title: string;
-  closeButton: React.ReactNode;
-}
 interface Props {
   onFeedbackTypeChange?: (type: FeedbackType) => void;
-  header: WidgetHeader;
   feedbackTypes: Record<string, FeedbackTypeObject>;
 }
 
 export function FeedbackTypeStep({
   onFeedbackTypeChange = () => {},
-  header,
   feedbackTypes,
 }: Props) {
-  const WidgetCloseButton = header.closeButton;
   return (
     <>
-      <header>
-        <span className="text-xl leading-6">{header.title}</span>
-
-        {WidgetCloseButton}
-      </header>
-
       <div className="flex py-8 gap-2 w-full">
         {Object.entries(feedbackTypes).map(([key, value]) => {
           return (
