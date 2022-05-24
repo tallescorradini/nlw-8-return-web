@@ -9,38 +9,34 @@ import { WidgetForm } from "./components/Widget/components/WidgetForm/WidgetForm
 function App() {
   return (
     <>
-      <Widget
-        popoverButton={
-          <WidgetPopoverButton
-            icon={<ChatTeardropDots className="w-6 h-6" />}
-            text="Feedback"
-          />
-        }
-        form={
-          <WidgetForm
-            header={
-              <WidgetHeader
-                title={
-                  <span className="text-xl leading-6">Deixe seu feedback</span>
-                }
-                closeButton={<CloseButton />}
-              />
-            }
-            firstStep={<FeedbackTypeStep feedbackTypes={feedbackTypes} />}
-            footerContent={
-              <span>
-                Feito com ♥ pela{" "}
-                <a
-                  href="https://rocketseat.com.br"
-                  className="underline underline-offset-2"
-                >
-                  Rocketseat
-                </a>
-              </span>
-            }
-          />
-        }
-      />
+      <Widget>
+        <WidgetForm
+          header={
+            <WidgetHeader
+              title={
+                <span className="text-xl leading-6">Deixe seu feedback</span>
+              }
+              closeButton={<CloseButton />}
+            />
+          }
+          firstStep={<FeedbackTypeStep feedbackTypes={feedbackTypes} />}
+          footerContent={
+            <span>
+              Feito com ♥ pela{" "}
+              <a
+                href="https://rocketseat.com.br"
+                className="underline underline-offset-2"
+              >
+                Rocketseat
+              </a>
+            </span>
+          }
+        />
+        <WidgetPopoverButton
+          icon={<ChatTeardropDots className="w-6 h-6" />}
+          text="Feedback"
+        />
+      </Widget>
     </>
   );
 }

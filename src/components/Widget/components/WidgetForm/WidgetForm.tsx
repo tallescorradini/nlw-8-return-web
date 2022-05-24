@@ -1,3 +1,4 @@
+import { Popover } from "@headlessui/react";
 import { ArrowLeft } from "phosphor-react";
 import React, { cloneElement, useState } from "react";
 
@@ -29,44 +30,46 @@ export function WidgetForm({
   }
 
   return (
-    <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
-      {isFeedbackSubmitted ? (
-        <>
-          {cloneElement(Header, {
-            returnButton: null,
-            title: null,
-          })}
-          <FeedbackSuccessStep onReturn={handleRestartFeedback} />
-        </>
-      ) : feedbackType !== null ? (
-        <>
-          {cloneElement(Header, {
-            returnButton: <ReturnButton onClick={handleRestartFeedback} />,
-            title: (
-              <WidgetTitle
-                image={
-                  <img
-                    alt={feedbackTypes[feedbackType].image.alt}
-                    src={feedbackTypes[feedbackType].image.source}
-                  />
-                }
-                text={feedbackTypes[feedbackType].title}
-              />
-            ),
-          })}
-          <FeedBackContentStep onSubmit={() => setIsFeedbackSubmited(true)} />
-        </>
-      ) : (
-        <>
-          {Header}
-          {cloneElement(FeedbackTypeStep, {
-            onFeedbackTypeChange: setFeedbackType,
-          })}
-        </>
-      )}
+    <Popover.Panel>
+      <div className="bg-zinc-900 p-4 relative rounded-2xl mb-4 flex flex-col items-center shadow-lg w-[calc(100vw-2rem)] md:w-auto">
+        {isFeedbackSubmitted ? (
+          <>
+            {cloneElement(Header, {
+              returnButton: null,
+              title: null,
+            })}
+            <FeedbackSuccessStep onReturn={handleRestartFeedback} />
+          </>
+        ) : feedbackType !== null ? (
+          <>
+            {cloneElement(Header, {
+              returnButton: <ReturnButton onClick={handleRestartFeedback} />,
+              title: (
+                <WidgetTitle
+                  image={
+                    <img
+                      alt={feedbackTypes[feedbackType].image.alt}
+                      src={feedbackTypes[feedbackType].image.source}
+                    />
+                  }
+                  text={feedbackTypes[feedbackType].title}
+                />
+              ),
+            })}
+            <FeedBackContentStep onSubmit={() => setIsFeedbackSubmited(true)} />
+          </>
+        ) : (
+          <>
+            {Header}
+            {cloneElement(FeedbackTypeStep, {
+              onFeedbackTypeChange: setFeedbackType,
+            })}
+          </>
+        )}
 
-      <footer className="text-xs text-neutral-400">{FooterContent}</footer>
-    </div>
+        <footer className="text-xs text-neutral-400">{FooterContent}</footer>
+      </div>
+    </Popover.Panel>
   );
 }
 

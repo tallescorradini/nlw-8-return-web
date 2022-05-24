@@ -38,16 +38,14 @@ export interface FeedbackTypeObject {
 export type FeedbackType = keyof typeof feedbackTypes;
 
 interface Props {
-  form: React.ReactElement;
-  popoverButton: React.ReactElement;
+  children: React.ReactNode;
 }
 
-export function Widget({ form: Form, popoverButton: PopoverButton }: Props) {
+export function Widget({ children }: Props) {
+  console.log(children);
   return (
     <Popover className="absolute bottom-4 right-4 md:bottom-8 md:right-8 flex flex-col items-end">
-      <Popover.Panel>{Form}</Popover.Panel>
-
-      {PopoverButton}
+      {children}
     </Popover>
   );
 }
