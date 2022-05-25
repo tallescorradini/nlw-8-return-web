@@ -1,12 +1,13 @@
 import { ArrowLeft } from "phosphor-react";
 import React, { cloneElement, useState } from "react";
+import { WidgetHeaderProps } from "../../../../App";
 
 import { FeedbackType, feedbackTypes } from "../../Widget";
 import { FeedBackContentStep } from "./components/FeedbackContentStep";
 import { FeedbackSuccessStep } from "./components/FeedbackSuccessStep";
 
 interface Props {
-  header: React.ReactElement;
+  header: React.ReactElement<WidgetHeaderProps>;
   footer: React.ReactNode;
   firstStep: React.ReactElement;
 }
@@ -34,7 +35,7 @@ export function WidgetForm({
         <>
           {cloneElement(Header, {
             returnButton: null,
-            title: null,
+            text: "",
           })}
           <FeedbackSuccessStep onReturn={handleRestartFeedback} />
         </>
@@ -42,15 +43,11 @@ export function WidgetForm({
         <>
           {cloneElement(Header, {
             returnButton: <ReturnButton onClick={handleRestartFeedback} />,
-            title: (
-              <WidgetTitle
-                image={
-                  <img
-                    alt={feedbackTypes[feedbackType].image.alt}
-                    src={feedbackTypes[feedbackType].image.source}
-                  />
-                }
-                text={feedbackTypes[feedbackType].title}
+            text: feedbackTypes[feedbackType].title,
+            icon: (
+              <img
+                alt={feedbackTypes[feedbackType].image.alt}
+                src={feedbackTypes[feedbackType].image.source}
               />
             ),
           })}
@@ -79,20 +76,5 @@ function ReturnButton({ onClick }: { onClick: () => void }) {
     >
       <ArrowLeft weight="bold" className="w-4 h-4" />
     </button>
-  );
-}
-
-function WidgetTitle({
-  image: Image,
-  text,
-}: {
-  image: React.ReactElement;
-  text: string;
-}) {
-  return (
-    <span className="text-xl leading-6 flex items-center gap-2">
-      {Image}
-      {text}
-    </span>
   );
 }

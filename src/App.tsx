@@ -19,9 +19,7 @@ function App() {
           <WidgetForm
             header={
               <WidgetHeader
-                title={
-                  <span className="text-xl leading-6">Deixe seu feedback</span>
-                }
+                text="Deixe seu feedback"
                 closeButton={<CloseButton />}
               />
             }
@@ -41,22 +39,33 @@ function App() {
 
 export default App;
 
-interface WidgetHeader {
+export interface WidgetHeaderProps {
   returnButton?: React.ReactNode;
-  title: React.ReactNode;
+  text: string;
+  icon?: React.ReactNode;
   closeButton: React.ReactNode;
 }
 
 function WidgetHeader({
   returnButton: ReturnButton = null,
-  title: Title,
+  text,
+  icon: Icon,
   closeButton: CloseButton,
-}: WidgetHeader) {
+}: WidgetHeaderProps) {
+  const TitleWithoutIcon = <span className="text-xl leading-6">{text}</span>;
+  const TitleWithIcon = (
+    <span className="text-xl leading-6 flex items-center gap-2">
+      {Icon}
+      {text}
+    </span>
+  );
+  const Title = Icon === null ? TitleWithoutIcon : TitleWithIcon;
+
   return (
     <header>
       {ReturnButton !== null ? ReturnButton : null}
 
-      {Title !== null ? Title : null}
+      {text !== "" ? Title : null}
 
       {CloseButton}
     </header>
